@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<!--
+swipe:滑动事件（手势事件）
+swipeLeft
+swipeRight
+swipeUp
+swipeDown
+在移动端的库  zepto.js 封装了
+
+什么原理：
+1.必须滑动过
+2.根据滑动的方向来判断手势的方向
+3.确定滑动的距离满足手势的距离  50px
+-->
+<script>
+    window.onload = function () {
+        var div = document.querySelector('div');
+
+        var isMove = false;
+        var startY = 0;
+        var distance = 0;
+        div.addEventListener('touchstart',function (e) {
+            startY = e.touches[0].clientY;
+        });
+        div.addEventListener('touchmove',function (e) {
+            var moveY =  e.touches[0].clientY;
+            distance = moveY - startY;
+            isMove = true;
+        })
+        div.addEventListener('touchend',function (e) {
+            if(isMove){
+                if(Math.abs(distance) > 50){
+                    if(distance > 0){
+                        console.log('swipeDown');
+                    }else{
+                        console.log('swipeUp');
+                    }
+                }
+            }
+             isMove = false;
+             startY = 0;
+             distance = 0;
+        });
+
+    }
+</script>
+</body>
+</html>

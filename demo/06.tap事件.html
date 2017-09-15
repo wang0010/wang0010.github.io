@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<script>
+    window.onload = function () {
+        var div = document.querySelector('div');
+        /*
+        * tap事件  轻触  轻击（不支持，没有原生的这个tap事件，有移动端的库衍生（封装）出tap相关事件）
+        * click  点击事件（移动也支持，在移动端有300ms的延时  响应太慢  影响用户的体验）
+        * 有移动端的库衍生（封装）出tap相关事件  （zepto.js）
+        * tap 轻触
+        * singleTap 单击
+        * longTap   长击 长按
+        * doubleTap 双击
+        *
+        * tap事件：响应速度快 (1.不能滑动 2.在150ms内)
+        * */
+
+        /*div.addEventListener('click',function (e) {
+            console.log('click');
+        });*/
+
+        var isMove = false;
+        var startTime = 0;
+        div.addEventListener('touchstart',function (e) {
+            console.log('touchstart');
+            startTime = Date.now();/*获取当前时间*/
+        });
+        div.addEventListener('touchmove',function (e) {
+            console.log('touchmove');
+            isMove = true;
+        })
+        div.addEventListener('touchend',function (e) {
+            console.log('touchend');
+            console.log(Date.now()-startTime);
+            if(!isMove && (Date.now()-startTime) < 150){
+                console.log('tap事件')
+            }
+
+            isMove = false;
+            startTime = 0;
+        });
+
+
+        /*提高移动端的点击响应速度*/
+        /*方案1. 使用移动端库 当中的  tap相关事件 */
+        /*方案2. 还是使用click 当时需要一个插件 提高clickd的响应速度   fastclcik.js */
+
+    }
+</script>
+</body>
+</html>

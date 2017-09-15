@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+<!--
+touch 是移动端特有事件 （触摸）
+touch 是一个事件组合   包含很多touch相关事件
+例如：
+touchstart
+当触摸到屏幕的时候  触发这个事件
+touchmove
+在屏幕上滑动的时候  触发这个事件  （不停的触发）
+touchend
+当触摸离开屏幕的时候  触发这个事件
+
+touchcancel
+了解：被动的离开了屏幕 触发这个事件（来电）
+
+分析：事件对象移动端特有的属性  TouchEvent
+(touches 触摸点的集合  数组 )
+需要分析的属性：
+changedTouches
+当前屏幕上的改变过的触摸点集合
+targetTouches
+当前目标元素上的触摸点集合
+touches
+当前页面上所有的触摸点集合
+
+在触摸事件当中  这些记录触摸点集合的属性是会有差别的
+touchstart: changedTouches  targetTouches touches
+touchmove:changedTouches targetTouches touches
+touchend:changedTouches
+
+分析：每一个触摸点的详细信息
+目的：能利用这些坐标 计算出手指滑动的距离
+基于视口的坐标
+clientX
+clientY
+基于屏幕的坐标
+screenX
+screenY
+基于页面文档的坐标
+pageX
+pageY
+
+-->
+<div></div>
+<script>
+    window.onload = function () {
+        var div = document.querySelector('div');
+        /*1.  touchstart*/
+        div.addEventListener('touchstart',function (e) {
+            console.log('touchstart');
+            console.log(e);
+            console.log(e.touches[0].clientX);
+            console.log(e.touches[0].clientY);
+            console.log(e.touches[0].screenX);
+            console.log(e.touches[0].screenY);
+            console.log(e.touches[0].pageX);
+            console.log(e.touches[0].pageY);
+        });
+        /*2.  touchmove*/
+        div.addEventListener('touchmove',function (e) {
+            console.log('touchmove');
+            console.log(e);
+        });
+        /*3.  touchend*/
+        div.addEventListener('touchend',function (e) {
+            console.log('touchend');
+            console.log(e);
+        });
+    }
+</script>
+</body>
+</html>
